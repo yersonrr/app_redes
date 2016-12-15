@@ -10,27 +10,27 @@
       <div class="list">
         <label class="item item-input item-stacked-label">
           <span class="input-label">Nombre</span>
-          <input type="text" placeholder="John">
+          <input type="text" placeholder="John" ng-model="logupData.name">
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Apellido</span>
-          <input type="text" placeholder="Suhr">
+          <input type="text" placeholder="Suhr" ng-model="logupData.last_name">
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Edad</span>
-          <input type="text" placeholder="18">
+          <input type="text" placeholder="18" ng-model="logupData.age">
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Cédula</span>
-          <input type="text" placeholder="V-123456789">
+          <input type="text" placeholder="V-123456789" ng-model="logupData.id_number">
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Nickname</span>
-          <input type="text" placeholder="Batman">
+          <input type="text" placeholder="Batman" ng-model="logupData.nickname">
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Contraseña</span>
-          <input type="password" placeholder="*******">
+          <input type="password" placeholder="*******" ng-model="logupData.password">
         </label>
         <label class="item">
           <button class="button button-block button-positive" type="submit">Log up</button>

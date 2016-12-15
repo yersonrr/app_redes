@@ -18,28 +18,25 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/app/browse">
+        <ion-item menu-close href="#/app/welcome" ng-if="!loged">
           Welcome
         </ion-item>
-        <ion-item menu-close ng-click="login()">
+        <ion-item menu-close ng-click="login()" ng-if="!loged">
           Login
         </ion-item>
-        <ion-item menu-close ng-click="logup()">
+        <ion-item menu-close ng-click="logup()" ng-if="!loged">
           Logup
         </ion-item>
-        <ion-item menu-close href="#/app/operaciones">
+        <ion-item menu-close href="#/app/operaciones" ng-if="loged">
           Ver operaciones
         </ion-item>
-        <ion-item menu-close href="#/app/search">
-          Search
-        </ion-item>
-        <ion-item menu-close href="#/app/pago">
+        <ion-item menu-close href="#/app/pago" ng-if="loged">
           Realizar pago
         </ion-item>
-        <ion-item menu-close href="#/app/configuracion">
+        <ion-item menu-close href="#/app/configuracion" ng-if="loged">
           Configuracion
         </ion-item>
-        <ion-item menu-close ng-click="closeLogin()">
+        <ion-item menu-close ng-click="logout()" ng-if="loged">
           Cerrar Sesion
         </ion-item>
       </ion-list>

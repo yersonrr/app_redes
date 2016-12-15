@@ -1,6 +1,7 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['LocalStorageModule'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $ionicNavBarDelegate) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, 
+  $state, $ionicNavBarDelegate, $http, localStorageService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -11,6 +12,12 @@ angular.module('starter.controllers', [])
 
   // Form data for the login modal
   $scope.loginData = {};
+  $scope.logupData = {};
+  localStorageService.set("fullname", "");
+  localStorageService.set("nickname", "");
+  localStorageService.set("is_admin", false);
+  $scope.is_admin = localStorageService.get("is_admin");
+  $scope.loged = false;
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -44,6 +51,14 @@ angular.module('starter.controllers', [])
     $scope.modalup.hide();
   };
 
+  $scope.logout = function() {
+    $state.go('app.welcome');
+    $scope.loged = false;
+    localStorageService.set("fullname", "");
+    localStorageService.set("nickname", "");
+    localStorageService.set("is_admin", false); 
+  };
+
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
@@ -52,22 +67,78 @@ angular.module('starter.controllers', [])
     // code if using a login system
     $timeout(function() {
       $scope.closeLogin();
-      $state.go('app.home');
+
+      $http.post(
+      'http://0.0.0.0:8000/api/generallog',
+      {
+        'action': 0,
+        'nickname': $scope.loginData.nickname,
+        'password': $scope.loginData.password
+      }, 
+      {}
+        ).then (
+            function (response) {
+              console.log(response);
+              data = response.data;
+              if(data.id != -1){
+                console.log('IT WORKS');
+                $state.go('app.home');
+                $scope.loged = true;
+              }
+            },
+            function (response) {
+              console.log("Error");
+              console.log(response);
+            }
+        );
+
       $ionicNavBarDelegate.showBackButton(false);
     }, 1000);
   };
 
   $scope.doLogup = function() {
-    console.log('Doing logup', $scope.loginData);
+    console.log('Doing logup', $scope.logupData);
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
     $timeout(function() {
       $scope.closeLogup();
-      $state.go('app.home');
+
+      $http.post(
+      'http://0.0.0.0:8000/api/generallog',
+      {
+        'action': 1,
+        'name': $scope.logupData.name,
+        'last_name': $scope.logupData.last_name,
+        'age': $scope.logupData.age,
+        'id_number': $scope.logupData.id_number,
+        'nickname': $scope.logupData.nickname,
+        'password': $scope.logupData.password
+      }, 
+      {}
+        ).then (
+            function (response) {
+              console.log(response);
+              data = response.data;
+              if(data.id != -1){
+                console.log('IT WORKS');
+                $state.go('app.home');
+                $scope.loged = true;
+              }
+            },
+            function (response) {
+              console.log("Error");
+              console.log(response);
+            }
+        );
+
       $ionicNavBarDelegate.showBackButton(false);
     }, 1000);
   };
+
+
+
+
 })
 
 .controller('ConfigCtrl', function($scope) {
