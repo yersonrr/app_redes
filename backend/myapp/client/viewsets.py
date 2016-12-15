@@ -48,7 +48,6 @@ class GeneralLog(APIView):
                     return Response(answerData, status.HTTP_412_PRECONDITION_FAILED)
                 else:
                     del client['password']
-                    del client['id']
                     answerData = {'id': 1, 'client':client}
                     return Response(answerData, status.HTTP_200_OK)                
             elif(action==1 or action==2):
@@ -82,7 +81,6 @@ class GeneralLog(APIView):
                 client = Client.objects.filter(nickname=nickname)
                 client = client.values()[0]
                 del client['password']
-                del client['id']
 
                 answerData = {'id': 1, 'client':client}
                 return Response(answerData, status.HTTP_200_OK)

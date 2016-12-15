@@ -1,6 +1,15 @@
 <ion-view view-title="Home">
   <ion-content>
-    <h1>Saldo Total:</h1>
-    <h1>Ultima transferencia</h1>
+    <div class="card calm">
+  		<div class="item item-divider">
+   			Posición Global
+  		</div>
+	  <div class="item item-text-wrap">
+	  	<p> Nombre: {{client.name + ' ' + client.last_name}} </p>
+	  	<p> Cedula: {{client.id}} </p>
+	    <p> Edad: {{client.age}} </p>
+	    <p> Saldo: {{client.points}} </p>
+	  </div>  
+	</div>
   </ion-content>
 </ion-view>

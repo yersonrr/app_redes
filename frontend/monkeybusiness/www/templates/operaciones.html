@@ -1,5 +1,25 @@
 <ion-view view-title="Operaciones">
   <ion-content>
-    <h1>Aqui se muestran las operaciones en las que ha estado involucrado</h1>
+    <label class="item item-input">
+      <span class="input-label">Filtro transac.</span>
+      <input type="text" ng-model="filterT">
+    </label>
+
+    <div class="card card-calm" ng-repeat="transac in transactions| filter: filterT">
+      <div class="item item-divider calm">
+        {{transac.id_transaction}}
+      </div>
+      <div class="item item-text-wrap">
+        <p>Fecha: {{transac.fecha}}</p>
+        <p>Concepto: {{transac.concepto}}</p>
+        <p>Monto: {{transac.monto}}</p>
+        <p ng-if="transac.remitente != client.id">Remitente: {{transac.remitente}}</p>
+        <p ng-if="transac.remitente == client.id">Remitente: {{client.name + ' ' + client.last_name}}</p>
+
+        <p ng-if="transac.receptor != client.id">Receptor: {{transac.receptor}}</p>
+        <p ng-if="transac.receptor == client.id">Receptor: {{client.name + ' ' + client.last_name}}</p>
+
+      </div> 
+    </div>
   </ion-content>
 </ion-view>

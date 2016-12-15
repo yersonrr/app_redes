@@ -27,6 +27,9 @@
         <ion-item menu-close ng-click="logup()" ng-if="!loged">
           Logup
         </ion-item>
+        <ion-item menu-close href="#/app/home" ng-if="loged">
+          Estado Global
+        </ion-item>
         <ion-item menu-close href="#/app/operaciones" ng-if="loged">
           Ver operaciones
         </ion-item>

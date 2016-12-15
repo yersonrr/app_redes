@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['LocalStorageModule'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, 
+.controller('AppCtrl', function($scope, $ionicPopup, $ionicModal, $timeout, 
   $state, $ionicNavBarDelegate, $http, localStorageService) {
 
   // With the new view caching in Ionic, Controllers are only called
@@ -34,9 +34,16 @@ angular.module('starter.controllers', ['LocalStorageModule'])
     $scope.modalup = modal;
   });
 
+  $scope.popUpElement = function(message){
+    var alertPopup = $ionicPopup.alert({
+     title: 'Error',
+     template: message
+   });
+  };
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
+    $('body').removeClass('modal-open');
     $scope.modal.hide();
   };
 
@@ -50,6 +57,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
   };  
 
   $scope.closeLogup = function() {
+    $('body').removeClass('modal-open');
     $scope.modalup.hide();
   };
 
@@ -88,17 +96,23 @@ angular.module('starter.controllers', ['LocalStorageModule'])
                 console.log('IT WORKS');
                 if(data.client.type_Client == 1){
                   localStorageService.set("is_admin", true);
-                  localStorageService.set("client", data.client);
                   $scope.is_admin = true; 
                   $scope.message_button = "Save User";
                 }
+                localStorageService.set("client", data.client);
                 $state.go('app.home');
                 $scope.loged = true;
+              } else {
+                $scope.popUpElement(data.response);
               }
             },
             function (response) {
+              data = response.data;
               console.log("Error");
               console.log(response);
+              $scope.closeLogin();
+
+              $scope.popUpElement(data.response);
             }
         );
 
@@ -133,12 +147,18 @@ angular.module('starter.controllers', ['LocalStorageModule'])
               if(data.id != -1){
                 console.log('IT WORKS');
                 $state.go('app.home');
+                localStorageService.set("client", data.client);
                 $scope.loged = true;
+              } else {
+                $scope.popUpElement(response.data);                  
               }
             },
             function (response) {
+              $scope.closeLogup();
+              data = response.data;
               console.log("Error");
               console.log(response);
+              $scope.popUpElement(data.response);
             }
         );
 
@@ -151,7 +171,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
 })
 
-.controller('AdminCtrl', function($scope, $ionicModal, $timeout, 
+.controller('AdminCtrl', function($scope, $ionicPopup, $ionicModal, $timeout, 
   $state, $ionicNavBarDelegate, $http){
 
   $scope.AdminData = {};
@@ -164,8 +184,15 @@ angular.module('starter.controllers', ['LocalStorageModule'])
     $scope.modalup = modal;
   });
 
+  $scope.popUpElement = function(message){
+    var alertPopup = $ionicPopup.alert({
+     title: 'Error',
+     template: message
+   });
+  };
 
   $scope.closeLogup = function(){
+    $('body').removeClass('modal-open');
     $scope.modalup.hide();
   }
 
@@ -203,8 +230,9 @@ angular.module('starter.controllers', ['LocalStorageModule'])
               }
             },
             function (response) {
+              data = response;
               console.log("Error");
-              console.log(response);
+              $scope.popUpElement(data.response);
             }
         );
 
@@ -237,7 +265,8 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 })
 
 // Boton de transferir funciona bien, el de cancelar no funciona: no borra los campos de texto
-.controller('PagoCtrl', function($scope, $ionicPopup) {
+.controller('PagoCtrl', function($scope, $ionicPopup, 
+  $state, $ionicNavBarDelegate, $http) {
   
   $scope.pagar = {
     usuario: "",
@@ -257,9 +286,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
   }
 
   $scope.cancelar = function() {
-    var formElement = document.getElementById('pagoForm');
-    var angularElement = angular.element(formElement)
-    angularElement.scope().clearFields();
+    $scope.pagar = {};
   }
 
   $scope.clearFields = function() {
@@ -278,6 +305,53 @@ angular.module('starter.controllers', ['LocalStorageModule'])
         console.log(response);
         $scope.clients = response.data;
         $ionicNavBarDelegate.showBackButton(true);
+      },
+      function (response) {
+        console.log("Error");
+        console.log(response);
+      }
+    )
+  };
+
+  $scope.actualizarDatos();
+})
+
+.controller('HomeCtrl', function($scope, $ionicModal, $timeout, 
+  $state, $ionicNavBarDelegate, $http, localStorageService) {
+
+    $scope.client = localStorageService.get("client");
+})
+
+.controller('OperationsCtrl', function($scope, $ionicModal, $timeout, 
+  $state, $ionicNavBarDelegate, $http, localStorageService) {
+
+  $scope.client = localStorageService.get('client');
+
+  $scope.searchUser = function(element){
+    $http.get('http://0.0.0.0:8000/api/Clients/'+element)
+    .then(
+      function (response) {
+        data = response;
+        console.log(data);
+        return data.name + ' ' + data.last_name;
+      },
+      function (response) {
+        console.log("Error");
+        console.log(response);
+      }
+    )
+  };
+
+  $scope.actualizarDatos = function(){
+    $http.get('http://0.0.0.0:8000/api/Transaction/')
+    .then(
+      function (response) {
+        console.log(response);
+        $scope.transactions = response.data;
+        for(var i in $scope.transactions){
+          if($scope.transactions[i].remitente != $scope.client.id && $scope.transactions[i].receptor != $scope.client.id)
+            $scope.transactions.splice(i,1);
+        }
       },
       function (response) {
         console.log("Error");
