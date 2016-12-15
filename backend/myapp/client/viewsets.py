@@ -72,7 +72,11 @@ class GeneralLog(APIView):
 
                 client = Client.objects.create(name=name, last_name=last_name, 
                     age=age, id_number=id_number, password=password, nickname=nickname)
-                
+                client = Client.objects.filter(nickname=nickname)
+                client = client.values()[0]
+                del client['password']
+                del client['id']
+
                 answerData = {'id': 1, 'client':client}
                 return Response(answerData, status.HTTP_200_OK)
         except:
