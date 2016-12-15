@@ -52,7 +52,7 @@ angular.module('starter.controllers', [])
     // code if using a login system
     $timeout(function() {
       $scope.closeLogin();
-      $state.go('app.playlists');
+      $state.go('app.home');
       $ionicNavBarDelegate.showBackButton(false);
     }, 1000);
   };
@@ -64,13 +64,13 @@ angular.module('starter.controllers', [])
     // code if using a login system
     $timeout(function() {
       $scope.closeLogup();
-      $state.go('app.playlists');
+      $state.go('app.home');
       $ionicNavBarDelegate.showBackButton(false);
     }, 1000);
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
+.controller('ConfigCtrl', function($scope) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
     { title: 'Chill', id: 2 },
@@ -79,6 +79,9 @@ angular.module('starter.controllers', [])
     { title: 'Rap', id: 5 },
     { title: 'Cowbell', id: 6 }
   ];
+})
+
+.controller('PagoCtrl', function($scope) {
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
