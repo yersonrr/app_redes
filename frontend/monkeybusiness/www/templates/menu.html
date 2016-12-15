@@ -1,6 +1,6 @@
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="true">
   <ion-side-menu-content>
-    <ion-nav-bar class="bar-stable">
+    <ion-nav-bar class="bar-positive">
       <ion-nav-back-button>
       </ion-nav-back-button>
 
@@ -14,18 +14,21 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar-stable">
-      <h1 class="title">Left</h1>
+      <h1 class="title"><div class="ion-cash"> Monkey Business</div></h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
         <ion-item menu-close ng-click="login()">
           Login
         </ion-item>
+        <ion-item menu-close ng-click="logup()">
+          Logup
+        </ion-item>
         <ion-item menu-close href="#/app/search">
           Search
         </ion-item>
         <ion-item menu-close href="#/app/browse">
-          Browse
+          Welcome
         </ion-item>
         <ion-item menu-close href="#/app/playlists">
           Playlists

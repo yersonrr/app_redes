@@ -1,0 +1,41 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Logup</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeLogup()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doLogup()">
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Nombre</span>
+          <input type="text" placeholder="John">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Apellido</span>
+          <input type="text" placeholder="Suhr">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Edad</span>
+          <input type="text" placeholder="18">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Cédula</span>
+          <input type="text" placeholder="V-123456789">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Nickname</span>
+          <input type="text" placeholder="Batman">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Contraseña</span>
+          <input type="password" placeholder="*******">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Log up</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>
