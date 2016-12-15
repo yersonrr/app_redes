@@ -33,10 +33,7 @@
         <ion-item menu-close href="#/app/pago" ng-if="loged">
           Realizar pago
         </ion-item>
-        <ion-item menu-close href="#/app/configuracion" ng-if="loged">
-          Configuracion
-        </ion-item>
-        <ion-item menu-close href="#/app/admin">
+        <ion-item menu-close href="#/app/admin" ng-if="is_admin">
           Vista Administrador
         </ion-item>
         <ion-item menu-close ng-click="logout()" ng-if="loged">

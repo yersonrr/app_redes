@@ -1,21 +1,21 @@
-<ion-modal-view>
-  <ion-header-bar>
-    <h1 class="title">Busqueda de usuarios</h1>
-    <div class="buttons">
-      <button class="button ion-close-round" ng-click="closeBuscar()"></button>
-    </div>
-  </ion-header-bar>
+<ion-view view-title="Clientes">
   <ion-content>
-    <form ng-submit="doBusqueda()">
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Nombre de usuario</span>
-          <input type="text">
-        </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Buscar</button>
-        </label>
+
+    <label class="item item-input">
+      <span class="input-label">Filtro de usuarios</span>
+      <input type="text" ng-model="filterClient">
+    </label>
+
+    <div class="card card-calm" ng-repeat="client in clients| filter: filterClient">
+      <div class="item item-divider calm">
+        {{client.name + ' ' + client.last_name}}
       </div>
-    </form>
+      <div class="item item-text-wrap">
+        <p>Nombre de Usuario: {{client.nickname}}</p>
+        <p>Cedula: {{client.id_number}}</p>
+        <p>Edad: {{client.age}}</p>
+        <p>Saldo: {{client.points}}</p>
+      </div> 
+    </div>
   </ion-content>
-</ion-modal-view>
+</ion-view>

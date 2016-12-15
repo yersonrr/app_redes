@@ -1,12 +1,19 @@
 <ion-view view-title="Admin">
   <ion-content>
-    <h1>Aqui el administrador puede realizar distintas acciones (Agregar, borrar y modificar usuarios)</h1>
+    <div class="card calm">
+      <div class="item item-divider">
+        Vista Administrador
+      </div>
+    <div class="item item-text-wrap">
+      <p>Como administrador del sistema usted tiene la potestad de:</p>
+      <p> - Agregar nuevos usuarios. </p>
+      <p> - Visualizar la Información de los usuarios registrados.</p>
+    </div>  
+  </div>
   	<p></p>
-  	<button class="button icon-left button-balanced ion-person-add" ng-click="agregar()">Agregar Usuario</button>
+  	<button class="button button-block button-balanced ion-person-add" ng-click="agregar()">Agregar Usuario</button>
   	<p></p>
-  	<button class="button icon-left button-balanced ion-edit" ng-click="modificar()">Modificar Usuario</button>
-  	<p></p>
-  	<button class="button icon-left button-balanced ion-trash-a" ng-click="eliminar()">Eliminar Usuario</button>
+  	<button class="button button-block button-calm ion-edit" ng-click="redirect()">Visualizar Usuarios</button>
   	<p></p>
   </ion-content>
 </ion-view>

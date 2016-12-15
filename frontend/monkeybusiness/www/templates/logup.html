@@ -32,8 +32,13 @@
           <span class="input-label">Contraseña</span>
           <input type="password" placeholder="*******" ng-model="logupData.password">
         </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Log up</button>
+        <ion-list>
+          <ion-checkbox ng-model="logupData.is_admin" ng-if="is_admin">Administrador</ion-checkbox>
+        </ion-list>
+       <label class="item">
+          <button class="button button-block button-positive" type="submit">
+            {{message_button}}
+          </button>
         </label>
       </div>
     </form>

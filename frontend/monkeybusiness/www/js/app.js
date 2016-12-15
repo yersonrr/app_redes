@@ -84,6 +84,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
           controller: 'AdminCtrl'
         }
       }
+    })
+    .state('app.users', {
+      url: '/users',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/buscar.html',
+          controller: 'UsersCtrl'
+        }
+      }
     });
 
   // if none of the above states are matched, use this as the fallback
