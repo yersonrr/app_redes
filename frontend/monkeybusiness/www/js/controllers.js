@@ -266,16 +266,44 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
 // Boton de transferir funciona bien, el de cancelar no funciona: no borra los campos de texto
 .controller('PagoCtrl', function($scope, $ionicPopup, 
-  $state, $ionicNavBarDelegate, $http) {
+  $state, $ionicNavBarDelegate, $http, localStorageService) {
   
   $scope.pagar = {
     usuario: "",
     monto: ""
   }
+
+  $scope.client = localStorageService.get('client');
   
   var pagoForm = angular.copy($scope.pagar)
 
   $scope.doTransferencia = function(){
+    $http.post(
+      'http://0.0.0.0:8000/api/paidview',
+      {
+        'id_user': $scope.client.id,
+        'nickname_receptor': $scope.pagar.usuario,
+        'monto': $scope.pagar.monto,
+        'concepto': $scope.pagar.concepto,
+      }, 
+      {}
+        ).then (
+            function (response) {
+              console.log(response);
+              data = response.data;
+              $scope.modalup.hide();
+              if(data.id != -1){
+                console.log('IT WORKS');
+                $scope.logupData = {};
+              }
+            },
+            function (response) {
+              data = response;
+              console.log("Error");
+              $scope.popUpElement(data.response);
+            }
+        );
+
     var alertPopup = $ionicPopup.alert({
     title: 'Transferencia realizada.'
    });
@@ -283,11 +311,11 @@ angular.module('starter.controllers', ['LocalStorageModule'])
   alertPopup.then(function(res) {
     console.log('Se realizo una Transferencia.');
    });
-  }
+  };
 
   $scope.cancelar = function() {
     $scope.pagar = {};
-  }
+  };
 
   $scope.clearFields = function() {
     $scope.calculate = angular.copy(pagoForm);

@@ -5,6 +5,7 @@ from rest_framework.permissions import AllowAny
 from .models import Client, Transaction
 from .serializers import ClientSerializer, TransactionSerializer
 from django.core import serializers
+from datetime import datetime
 
 class ClientViewSet(viewsets.ModelViewSet):
     permission_classes = (AllowAny, )
@@ -84,5 +85,46 @@ class GeneralLog(APIView):
 
                 answerData = {'id': 1, 'client':client}
                 return Response(answerData, status.HTTP_200_OK)
+        except:
+            return Response({request},status.HTTP_412_PRECONDITION_FAILED)
+
+class PaidView(APIView):
+    """View for login and logup"""
+    permission_classes = (AllowAny, )
+
+    def post(self, request, *arg, **kargs):
+
+        try:
+            data = request.data
+            id_user = data["id_user"]
+            nickname = data["nickname_receptor"]
+            concepto = data["concepto"]
+            monto = int(data["monto"])
+            
+            client = Client.objects.get(id=id_user)
+            client2 = Client.objects.get(nickname=nickname)
+            if not client:
+                answerData = {'id':-1, 'response':'No existe el usuario'}
+                return Response(answerData, status.HTTP_412_PRECONDITION_FAILED)
+
+            print('WTTFFFFFFFFFFFFFFFFF\n')
+            client.points -= monto
+            client2.points += monto
+
+            client.save(update_fields=['points'])
+            client2.save(update_fields=['points'])
+            
+            today = datetime.today()
+            id_receptor = client2.id
+
+            print(client.points)
+            print(client2.points)
+
+            transaction = Transaction(id_transaction=10,remitente=client.id, receptor=client2.id, concepto=concepto, monto=monto)
+            transaction.save()
+
+            print('is here_????????????????')
+            answerData = {'id': 1, 'message':'Transacción exitosa'}
+            return Response(answerData, status.HTTP_200_OK)
         except:
             return Response({request},status.HTTP_412_PRECONDITION_FAILED)

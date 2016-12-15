@@ -1,19 +1,24 @@
 <ion-view view-title="Pago">
   <ion-content>
-        <div class="list list-inset">
-  		<form id="pagoForm" name="pagoForm">
+      <div class="list list-inset">
+  		  <form id="pagoForm" name="pagoForm">
   			<label class="item item-input">
-    			<i class="icon ion-search placeholder-icon"></i>
-    			<input type="text" placeholder="Search" ng-model="pagar.usuario">
+    			<i class="icon ion-person placeholder-icon"></i>
+    			<input type="text" placeholder="Nickname de Usuario a transf." ng-model="pagar.usuario">
   			</label>
-			<p></p>
-  			<label class="item item-input">
-				<input type="text" placeholder="Ingrese cantidad a transferir" ng-model="pagar.monto">
-			</label>
-		</form>
-		<p></p>
-		<button class="button icon-left button-block button-balanced ion-checkmark-round" ng-click="doTransferencia(pagar)">Transferir</button>
-		<button class="button icon-left button-block button-assertive ion-close-round" ng-click="cancelar()">Cancelar</button>
-	</div>
+  			<p></p>
+    		<label class="item item-input">
+          <i class="icon ion-social-codepen-outline placeholder-icon"></i>          
+  				<input type="text"  onkeypress='return  event.keyCode == 8 || (event.charCode >= 48 && event.charCode <= 57) ' placeholder="Cantidad a transferir" ng-model="pagar.monto">
+  			</label>
+        <p></p>
+        <label class="item item-input">
+          <input type="text" placeholder="Concepto" ng-model="pagar.concepto">
+        </label>
+		    </form>
+		    <p></p>
+		    <button class="button icon-left button-block button-balanced ion-checkmark-round" ng-click="doTransferencia(pagar)">Transferir</button>
+		    <button class="button icon-left button-block button-assertive ion-close-round" ng-click="cancelar()">Cancelar</button>
+	    </div>
   </ion-content>
 </ion-view>

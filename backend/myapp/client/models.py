@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 class Client(models.Model):
     name = models.CharField(max_length=200, verbose_name=('Nombre'))
@@ -13,13 +14,22 @@ class Client(models.Model):
     def __str__(self):
         return "%s %s" % (self.name,self.last_name) 
 
+    def addPaid(self, monto):
+        self.points += monto
+        return self.points
+
+    def lessPaid(self, monto):
+        self.points -= monto
+        return self.points        
+
     class Meta:
         verbose_name = ('Usuario')
         verbose_name_plural = ('Usuarios')
 
+
 class Transaction(models.Model):
     id_transaction = models.IntegerField(verbose_name=('Numero de transaccion'))
-    fecha = models.DateTimeField(verbose_name=("Fecha y hora de transaccion"))
+    fecha = models.DateTimeField(verbose_name=("Fecha y hora de transaccion"), default=datetime.now, blank=True)
     remitente = models.ForeignKey('Client', related_name='cliente1',null=True)
     receptor = models.ForeignKey('Client', related_name='cliente2',null=True)
     concepto = models.CharField(max_length=200, verbose_name=('Concepto'))
