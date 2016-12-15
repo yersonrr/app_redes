@@ -1,5 +1,19 @@
 <ion-view view-title="Pago">
   <ion-content>
-    <h1>Aqui se puede realizar un pago a otro usuario registrado</h1>
+        <div class="list list-inset">
+  		<form id="pagoForm" name="pagoForm">
+  			<label class="item item-input">
+    			<i class="icon ion-search placeholder-icon"></i>
+    			<input type="text" placeholder="Search" ng-model="pagar.usuario">
+  			</label>
+			<p></p>
+  			<label class="item item-input">
+				<input type="text" placeholder="Ingrese cantidad a transferir" ng-model="pagar.monto">
+			</label>
+		</form>
+		<p></p>
+		<button class="button icon-left button-balanced ion-checkmark-round" ng-click="doTransferencia(pagar)">Transferir</button>
+		<button class="button icon-left button-assertive ion-close-round" ng-click="cancelar()">Cancelar</button>
+	</div>
   </ion-content>
 </ion-view>
