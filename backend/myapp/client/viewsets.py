@@ -51,8 +51,10 @@ class GeneralLog(APIView):
                     del client['id']
                     answerData = {'id': 1, 'client':client}
                     return Response(answerData, status.HTTP_200_OK)                
-            elif(action==1):
+            elif(action==1 or action==2):
                 #Logup
+                if(action == 2):
+                    type_Client = data['type_Client']
                 name = data['name']
                 last_name = data['last_name']
                 age = data['age']
@@ -70,8 +72,13 @@ class GeneralLog(APIView):
                     answerData = {'id':-1, 'response':'Nombre de usuario ya registrado'}
                     return Response(answerData, status.HTTP_412_PRECONDITION_FAILED)
 
-                client = Client.objects.create(name=name, last_name=last_name, 
-                    age=age, id_number=id_number, password=password, nickname=nickname)
+                if(action == 1):
+                    client = Client.objects.create(name=name, last_name=last_name, 
+                        age=age, id_number=id_number, password=password, nickname=nickname)
+                else:
+                    client = Client.objects.create(name=name, last_name=last_name, 
+                        age=age, id_number=id_number, password=password, nickname=nickname,
+                        type_Client=type_Client)
                 client = Client.objects.filter(nickname=nickname)
                 client = client.values()[0]
                 del client['password']
