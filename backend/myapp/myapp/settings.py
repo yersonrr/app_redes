@@ -25,30 +25,33 @@ SECRET_KEY = 'g#cs2epacohotcpgcej=1x0gkn7t#5h2_#ikh=2@03$bgz_3)%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*', '0.0.0.0', 'localhost']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'client.apps.ClientConfig',
-    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'client.apps.ClientConfig',
+    'corsheaders',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'myapp.urls'
@@ -120,3 +123,30 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# CORS config
+CORS_ALLOW_CREDENTIALS = False
+CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES':
+        (
+            'rest_framework.permissions.AllowAny',
+        ),
+    'DEFAULT_AUTHENTICATION_CLASSES':
+        (
+            'rest_framework.authentication.SessionAuthentication',
+            'rest_framework.authentication.BasicAuthentication',
+        ),
+    #'DEFAULT_FILTER_BACKENDS':
+    #    (
+    #        'url_filter.integrations.drf.DjangoFilterBackend',
+    #    ),
+    # Enable to remove unicode errors from the browse-able API
+    # 'DEFAULT_RENDERER_CLASSES':
+    #     (
+    #         'rest_framework.renderers.JSONRenderer',
+    #     ),
+}
