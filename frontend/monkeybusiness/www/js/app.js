@@ -75,8 +75,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
           controller: 'ConfigCtrl'
         }
       }
-
+    })
+    .state('app.admin', {
+      url: '/admin',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/admin.html',
+          controller: 'AdminCtrl'
+        }
+      }
     });
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/firstview');
 });

@@ -70,6 +70,48 @@ angular.module('starter.controllers', [])
   };
 })
 
+.controller('AdminCtrl', function($scope, $ionicModal, $timeout, $state, $ionicNavBarDelegate){
+
+  $scope.AdminData = {};
+  
+  $ionicModal.fromTemplateUrl('templates/logup.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modalup = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('templates/buscar.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.search = modal;
+  });
+
+  $scope.agregar = function(){
+    $scope.modalup.show();
+  };
+
+  $scope.modificar = function(){
+    $scope.search.show();
+  };
+
+  $scope.eliminar = function(){
+    $scope.search.show();
+  };
+
+  $scope.doBusqueda = function(){
+    console.log('Doing busqueda');
+
+    $timeout(function() {
+      $scope.closeBuscar();
+      $ionicNavBarDelegate.showBackButton(false);
+    }, 1000);
+  };
+
+  $scope.closeBuscar = function(){
+    $scope.modalup.hide();
+  };
+})
+
 .controller('ConfigCtrl', function($scope) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
