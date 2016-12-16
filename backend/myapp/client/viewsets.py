@@ -100,11 +100,10 @@ class PaidView(APIView):
         
             client = Client.objects.get(nickname=user)
             client2 = Client.objects.get(nickname=nickname)
-            if not client:
+            if not client2:
                 answerData = {'id':-1, 'response':'No existe el usuario'}
                 return Response(answerData, status.HTTP_412_PRECONDITION_FAILED)
 
-            print('WTTFFFFFFFFFFFFFFFFF\n')
             client.points -= monto
             client2.points += monto
 
@@ -117,7 +116,6 @@ class PaidView(APIView):
             contador += 1
             transaction = Transaction(id_transaction=contador,remitente=client, receptor=client2, concepto=concepto, monto=monto)
             transaction.save()
-            print('is here_????????????????')
             answerData = {'id': 1, 'message':'Transacción exitosa'}
             return Response(answerData, status.HTTP_200_OK)
         

@@ -289,8 +289,16 @@ angular.module('starter.controllers', ['LocalStorageModule'])
               data = response.data;
               $scope.modalup.hide();
               if(data.id != -1){
-                console.log('IT WORKS');
-                $scope.logupData = {};
+                $scope.client.points = $scope.client.points - $scope.pagar.monto;
+                localStorageService.set('client', $scope.client);
+                $scope.pagar = {};
+                var alertPopup = $ionicPopup.alert({
+                  title: 'Transferencia realizada.'
+                });
+
+                alertPopup.then(function(res) {
+                  console.log('Se realizo una Transferencia.');
+                });
               }
             },
             function (response) {
@@ -299,14 +307,6 @@ angular.module('starter.controllers', ['LocalStorageModule'])
               $scope.popUpElement(data.response);
             }
         );
-
-    var alertPopup = $ionicPopup.alert({
-    title: 'Transferencia realizada.'
-   });
-
-  alertPopup.then(function(res) {
-    console.log('Se realizo una Transferencia.');
-   });
   };
 
   $scope.cancelar = function() {
@@ -328,7 +328,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
       function (response) {
         console.log(response);
         $scope.clients = response.data;
-        $ionicNavBarDelegate.showBackButton(true);
+        $ionicNavBarDelegate.showBackButton(false);
       },
       function (response) {
         console.log("Error");
@@ -343,7 +343,11 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 .controller('HomeCtrl', function($scope, $ionicModal, $timeout, 
   $state, $ionicNavBarDelegate, $http, localStorageService) {
 
-    $scope.client = localStorageService.get("client");
+    $scope.actualizarDatos = function(){
+      $scope.client = localStorageService.get("client");
+    };
+
+    $scope.actualizarDatos();
 })
 
 .controller('OperationsCtrl', function($scope, $ionicModal, $timeout, 
