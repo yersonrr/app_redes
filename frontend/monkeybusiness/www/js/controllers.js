@@ -81,7 +81,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
       $scope.closeLogin();
 
       $http.post(
-      'https://polar-gorge-13939.herokuapp.com:52696/api/generallog',
+      'https://polar-gorge-13939.herokuapp.com/api/generallog',
       {
         'action': 0,
         'nickname': $scope.loginData.nickname,
@@ -129,7 +129,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
       $scope.closeLogup();
 
       $http.post(
-      'https://polar-gorge-13939.herokuapp.com:52696/api/generallog',
+      'https://polar-gorge-13939.herokuapp.com/api/generallog',
       {
         'action': 1,
         'name': $scope.logupData.name,
@@ -203,7 +203,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
       if($scope.logupData.is_admin) admin = 1; 
 
       $http.post(
-      'https://polar-gorge-13939.herokuapp.com:52696/api/generallog',
+      'https://polar-gorge-13939.herokuapp.com/api/generallog',
       {
         'action': 2,
         'name': $scope.logupData.name,
@@ -275,7 +275,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
   $scope.doTransferencia = function(){
     $http.post(
-      'https://polar-gorge-13939.herokuapp.com:52696/api/paidview',
+      'https://polar-gorge-13939.herokuapp.com/api/paidview',
       {
         'nickname_remitente': $scope.client.nickname,
         'nickname_receptor': $scope.pagar.usuario,
@@ -323,7 +323,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
   $state, $ionicNavBarDelegate, $http) {
 
   $scope.actualizarDatos = function(){
-    $http.get('https://polar-gorge-13939.herokuapp.com:52696/api/Clients/')
+    $http.get('https://polar-gorge-13939.herokuapp.com/api/Clients/')
     .then(
       function (response) {
         console.log(response);
@@ -356,7 +356,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
   $scope.client = localStorageService.get('client');
 
   $scope.searchUser = function(element){
-    $http.get('https://polar-gorge-13939.herokuapp.com:52696/api/Clients/'+element)
+    $http.get('https://polar-gorge-13939.herokuapp.com/api/Clients/'+element)
     .then(
       function (response) {
         data = response;
@@ -371,7 +371,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
   };
 
   $scope.actualizarDatos = function(){
-    $http.get('https://polar-gorge-13939.herokuapp.com:52696/api/Transaction/')
+    $http.get('https://polar-gorge-13939.herokuapp.com/api/Transaction/')
     .then(
       function (response) {
         console.log(response);
