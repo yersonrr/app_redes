@@ -81,7 +81,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
       $scope.closeLogin();
 
       $http.post(
-      'http://0.0.0.0:8000/api/generallog',
+      'https://polar-gorge-13939.herokuapp.com:52696/api/generallog',
       {
         'action': 0,
         'nickname': $scope.loginData.nickname,
@@ -129,7 +129,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
       $scope.closeLogup();
 
       $http.post(
-      'http://0.0.0.0:8000/api/generallog',
+      'https://polar-gorge-13939.herokuapp.com:52696/api/generallog',
       {
         'action': 1,
         'name': $scope.logupData.name,
@@ -203,7 +203,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
       if($scope.logupData.is_admin) admin = 1; 
 
       $http.post(
-      'http://0.0.0.0:8000/api/generallog',
+      'https://polar-gorge-13939.herokuapp.com:52696/api/generallog',
       {
         'action': 2,
         'name': $scope.logupData.name,
@@ -275,7 +275,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
   $scope.doTransferencia = function(){
     $http.post(
-      'http://0.0.0.0:8000/api/paidview',
+      'https://polar-gorge-13939.herokuapp.com:52696/api/paidview',
       {
         'nickname_remitente': $scope.client.nickname,
         'nickname_receptor': $scope.pagar.usuario,
@@ -323,7 +323,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
   $state, $ionicNavBarDelegate, $http) {
 
   $scope.actualizarDatos = function(){
-    $http.get('http://0.0.0.0:8000/api/Clients/')
+    $http.get('https://polar-gorge-13939.herokuapp.com:52696/api/Clients/')
     .then(
       function (response) {
         console.log(response);
