@@ -165,10 +165,6 @@ angular.module('starter.controllers', ['LocalStorageModule'])
       $ionicNavBarDelegate.showBackButton(false);
     }, 1000);
   };
-
-
-
-
 })
 
 .controller('AdminCtrl', function($scope, $ionicPopup, $ionicModal, $timeout, 
@@ -281,7 +277,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
     $http.post(
       'http://0.0.0.0:8000/api/paidview',
       {
-        'id_user': $scope.client.id,
+        'nickname_remitente': $scope.client.nickname,
         'nickname_receptor': $scope.pagar.usuario,
         'monto': $scope.pagar.monto,
         'concepto': $scope.pagar.concepto,

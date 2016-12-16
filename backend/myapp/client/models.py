@@ -5,9 +5,9 @@ class Client(models.Model):
     name = models.CharField(max_length=200, verbose_name=('Nombre'))
     last_name = models.CharField(max_length=200, verbose_name=('Apellido'))
     age = models.IntegerField(verbose_name=('Edad'))
-    id_number = models.CharField(max_length=200, verbose_name=('Cedula'))
+    id_number = models.CharField(max_length=200, verbose_name=('Cedula'), unique=True)
     password = models.CharField(max_length=200, verbose_name=('Password'))
-    nickname = models.CharField(max_length=200, unique=True, verbose_name=('Nickname'))
+    nickname = models.CharField(max_length=200, primary_key=True, verbose_name=('Nickname'))
     type_Client =  models.IntegerField(verbose_name=('Valor'), default=0)
     points = models.IntegerField(verbose_name=('Saldo'), default=3000)
 
@@ -29,10 +29,10 @@ class Client(models.Model):
 
 class Transaction(models.Model):
     id_transaction = models.IntegerField(verbose_name=('Numero de transaccion'))
-    fecha = models.DateTimeField(verbose_name=("Fecha y hora de transaccion"), default=datetime.now, blank=True)
+    fecha = models.DateTimeField(verbose_name=("Fecha y hora de transaccion"), default=datetime.now)
     remitente = models.ForeignKey('Client', related_name='cliente1',null=True)
     receptor = models.ForeignKey('Client', related_name='cliente2',null=True)
-    concepto = models.CharField(max_length=200, verbose_name=('Concepto'))
+    concepto = models.CharField(max_length=200, verbose_name=('Concepto'), null=True)
     monto = models.IntegerField(verbose_name=('Monto de transferencia'),null=True)
 
     def __str__(self):

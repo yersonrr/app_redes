@@ -55,8 +55,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       url: '/operaciones',
       views: {
         'menuContent': {
-          controller: 'OperationsCtrl',
-          templateUrl: 'templates/operaciones.html'
+          templateUrl: 'templates/operaciones.html',
+          controller: 'OperationsCtrl'
         }
       }
     })

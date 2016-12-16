@@ -7,6 +7,8 @@ from .serializers import ClientSerializer, TransactionSerializer
 from django.core import serializers
 from datetime import datetime
 
+contador = 0
+
 class ClientViewSet(viewsets.ModelViewSet):
     permission_classes = (AllowAny, )
     queryset = Client.objects.all()
@@ -62,11 +64,6 @@ class GeneralLog(APIView):
                 password = data['password']
                 nickname = data['nickname']
 
-                client = Client.objects.filter(id_number=id_number)
-                if client:
-                    answerData = {'id':-1, 'response':'Id de usuario ya registrado'}
-                    return Response(answerData, status.HTTP_412_PRECONDITION_FAILED)
-
                 client = Client.objects.filter(nickname=nickname)
                 if client:
                     answerData = {'id':-1, 'response':'Nombre de usuario ya registrado'}
@@ -96,12 +93,12 @@ class PaidView(APIView):
 
         try:
             data = request.data
-            id_user = data["id_user"]
+            user = data["nickname_remitente"]
             nickname = data["nickname_receptor"]
             concepto = data["concepto"]
             monto = int(data["monto"])
-            
-            client = Client.objects.get(id=id_user)
+        
+            client = Client.objects.get(nickname=user)
             client2 = Client.objects.get(nickname=nickname)
             if not client:
                 answerData = {'id':-1, 'response':'No existe el usuario'}
@@ -114,17 +111,15 @@ class PaidView(APIView):
             client.save(update_fields=['points'])
             client2.save(update_fields=['points'])
             
-            today = datetime.today()
-            id_receptor = client2.id
-
             print(client.points)
             print(client2.points)
-
-            transaction = Transaction(id_transaction=10,remitente=client.id, receptor=client2.id, concepto=concepto, monto=monto)
+            global contador
+            contador += 1
+            transaction = Transaction(id_transaction=contador,remitente=client, receptor=client2, concepto=concepto, monto=monto)
             transaction.save()
-
             print('is here_????????????????')
             answerData = {'id': 1, 'message':'Transacción exitosa'}
             return Response(answerData, status.HTTP_200_OK)
+        
         except:
             return Response({request},status.HTTP_412_PRECONDITION_FAILED)
