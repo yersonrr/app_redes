@@ -356,7 +356,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
   $scope.client = localStorageService.get('client');
 
   $scope.searchUser = function(element){
-    $http.get('http://0.0.0.0:8000/api/Clients/'+element)
+    $http.get('https://polar-gorge-13939.herokuapp.com:52696/api/Clients/'+element)
     .then(
       function (response) {
         data = response;
@@ -371,7 +371,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
   };
 
   $scope.actualizarDatos = function(){
-    $http.get('http://0.0.0.0:8000/api/Transaction/')
+    $http.get('https://polar-gorge-13939.herokuapp.com:52696/api/Transaction/')
     .then(
       function (response) {
         console.log(response);
