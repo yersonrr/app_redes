@@ -1,0 +1,29 @@
+Instrucciones para instalación y uso de MonkeyBusinessApp
+
+1) Descargar la aplicación gratuita "Ionic View" en la Play Store (Link: https://play.google.com/store/apps/details?id=com.ionic.viewapp&hl=es). Gracias a esta aplicación se pueden mostrar aplicaciones sin necesidad de que estén montadas en la Play Store
+
+2) Entrar a la aplicación y seleccionar opción de "Log In" e ingresar los siguientes datos:
+email: monkeybusinessapp@gmail.com
+clave: emilio_hernandez
+
+3) Seleccionar opción de "Preview App" e ingresar el siguiente ID (en minúsculas):
+APP ID: a57112d0
+
+Nota: El último caracter es el número cero (0)
+
+4) Seleccionar "View APP" y ya se cargará la app, se mostrará una ayuda de gestos reconocibles por Ionic View, continúe presionando 
+la pantalla y se le mostrará la página de bienvenida de nuestra aplicación, donde podrá crear una cuenta o usar alguna de pre-definida, ingresando nombre de usuario ("Nickname") y contraseña.
+
+Nickname: Robin
+clave: 1234
+
+Nickname: dougtc
+clave:123douglas
+
+Nickname: flyroa
+clave: 1234
+
+El primero es un usuario normal, como todo el que se cree a través de la opción "Crear Cuenta", los dos últimos son usuarios administradores y pueden realizar acciones de administración.
+
+Las vistas relevantes cuentan con un boton que permiten la actualizacion de los datos, para cuando hayan 
+cambios u operaciones en la base de datos, estas puedan verse reflejadas en pantalla.
