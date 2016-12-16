@@ -377,7 +377,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
         console.log(response);
         $scope.transactions = response.data;
         for(var i in $scope.transactions){
-          if($scope.transactions[i].remitente != $scope.client.id && $scope.transactions[i].receptor != $scope.client.id)
+          if($scope.transactions[i].remitente != $scope.client.nickname && $scope.transactions[i].receptor != $scope.client.nickname)
             $scope.transactions.splice(i,1);
         }
       },
